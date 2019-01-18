@@ -24,7 +24,17 @@ class Main {
 
             let stringElement = serverDevice.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
 
-            
+            element_echoDoubleService.handler = { element, device in
+                let newValue = element.value
+                element_echoDoubleReturn.value = newValue
+                do {
+                    try device.send(element: element_echoDoubleReturn)
+                } catch {
+                    logError("Send error: \(error)")
+                }
+                //logDebug("Returning echo message: \(newValue)")
+            }
+
             serverDevice.events.deviceDisconnected.handler = { _ in
                 logDebug("Server disconnected handler fired")
             }
@@ -34,13 +44,6 @@ class Main {
 
                 let serverDevice = device as! ServerDevice
 
-                let returnElement = serverDevice.getElementWith(identifier: eid_testDoubleReturnElement)
-                returnElement?.handler = { element, device in
-                    logDebug("Recieved Double element: \(element.value)")
-                    // Send back an element
-                    
-                }
-                
                 var keepSending = true
                 while keepSending == true {
                     
