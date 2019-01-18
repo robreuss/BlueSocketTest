@@ -80,9 +80,7 @@ class Main {
     }
     
     func runServer() {
-        
-        ElementalController.loggerLogLevel = .Verbose
-        
+  
         elementalController.setupForService(serviceName: serviceName, displayName: "")
         
         elementalController.service.events.deviceDisconnected.handler = { _, _ in
