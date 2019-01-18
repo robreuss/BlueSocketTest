@@ -65,7 +65,7 @@ class Main {
                     
                     //--------------------------------
                     
-                    sleep(1000)
+                    usleep(1000)
                     
                     
                 }
@@ -80,6 +80,8 @@ class Main {
     }
     
     func runServer() {
+        
+        ElementalController.loggerLogLevel = .Verbose
         
         elementalController.setupForService(serviceName: serviceName, displayName: "")
         
