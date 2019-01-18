@@ -2,6 +2,9 @@ import Foundation
 import ElementalController
 
 let eid_testDoubleElement: Int8 = 1
+let eid_testStringElement: Int8 = 2
+
+
 let serviceName = "blue"
 var elementalController = ElementalController()
 var clientDevice: ClientDevice?
@@ -34,12 +37,23 @@ class Main {
                 var keepSending = true
                 while keepSending == true {
                     
+                    // This will send a DOUBLE and NOT result in a client disconnect (zero bytes read)
+                    /*
                     let element = device.getElementWith(identifier: eid_testDoubleElement)
-                    //elementEcho!.value = Date().timeIntervalSince1970
                     element!.value = Date().timeIntervalSince1970
                     do {
                         try serverDevice.send(element: element!)
-                        
+                    } catch {
+                        logDebug("Element failed to send: \(error)")
+                        keepSending = false
+                    }
+                    */
+                    
+                    // This will send a LONG STRING and result in a client disconnect (zero bytes read)
+                    let element = device.getElementWith(identifier: eid_testStringElement)
+                    element!.value = String(repeating: "A", count: 100000)
+                    do {
+                        try serverDevice.send(element: element!)
                     } catch {
                         logDebug("Element failed to send: \(error)")
                         keepSending = false
@@ -62,7 +76,7 @@ class Main {
         elementalController.setupForService(serviceName: serviceName, displayName: "")
         
         elementalController.service.events.deviceDisconnected.handler = { _, _ in
-            logDebug("Device disconnected handler fired")
+            logDebug("Client device disconnected handler fired")
         }
         
         elementalController.service.events.deviceConnected.handler = { _, device in
