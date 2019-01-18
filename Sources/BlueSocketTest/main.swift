@@ -41,8 +41,8 @@ class Main {
                     logDebug("Received return element")
                 }
 
-                let queue = DispatchQueue.global(qos: .userInteractive)
-                queue.async {
+               // let queue = DispatchQueue.global(qos: .userInteractive)
+                //queue.async {
                 var keepSending = true
                 while keepSending == true {
                     
@@ -80,7 +80,7 @@ class Main {
                     
                     
                 }
-                }
+                //}
                 
             }
             
