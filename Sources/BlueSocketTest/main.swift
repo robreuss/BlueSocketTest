@@ -11,6 +11,7 @@ var clientDevice: ClientDevice?
 var serverDevice: ServerDevice?
 
 ElementalController.loggerLogLevel = .Verbose
+ElementalController.protocolFamily = .inet
 
 class Main {
     
