@@ -71,7 +71,7 @@ class Main {
                     */
                     //--------------------------------
                     
-                    usleep(1000)
+                    usleep(32000)
                     
                     
                     
@@ -99,7 +99,7 @@ class Main {
 
             let doubleElement = device.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
             let doubleReturnElement = device.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
-            
+
             doubleElement.handler = { element, device in
                 let clientDevice = device as! ClientDevice
                 logDebug("Recieved Double element: \(element.value)")
@@ -112,7 +112,7 @@ class Main {
                     logDebug("Element failed to send: \(error)")
                 }
             }
-            
+
             let stringElement = device.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
             
             stringElement.handler = { element, device in
