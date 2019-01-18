@@ -35,8 +35,11 @@ class Main {
                 var keepSending = true
                 while keepSending == true {
                     
+                    
+                    
+                    // -------------------------------
                     // This will send a DOUBLE and NOT result in a client disconnect (zero bytes read)
-                    /*
+                    
                     let element = device.getElementWith(identifier: eid_testDoubleElement)
                     element!.value = Date().timeIntervalSince1970
                     do {
@@ -45,9 +48,14 @@ class Main {
                         logDebug("Element failed to send: \(error)")
                         keepSending = false
                     }
-                    */
                     
+                    //--------------------------------
+
+                    
+                    
+                    //--------------------------------
                     // This will send a LONG STRING and result in a client disconnect (zero bytes read)
+                    /*
                     let element = device.getElementWith(identifier: eid_testStringElement)
                     element!.value = String(repeating: "A", count: 100000)
                     do {
@@ -56,6 +64,10 @@ class Main {
                         logDebug("Element failed to send: \(error)")
                         keepSending = false
                     }
+                    */
+                    //--------------------------------
+                    
+                    
                     
                     
                 }
