@@ -41,6 +41,8 @@ class Main {
                     logDebug("Received return element")
                 }
 
+                let queue = DispatchQueue.global(qos: .userInteractive)
+                queue.async {
                 var keepSending = true
                 while keepSending == true {
                     
@@ -77,6 +79,7 @@ class Main {
                     
                     
                     
+                }
                 }
                 
             }
@@ -120,7 +123,7 @@ class Main {
                 //logDebug("Recieved String element: \(stringElement.value)")
             }
             
-            
+            /*
             var keepSending = true
             while keepSending == true {
                 
@@ -155,6 +158,7 @@ class Main {
                 usleep(10000)
    
             }
+ */
             
             
         }
