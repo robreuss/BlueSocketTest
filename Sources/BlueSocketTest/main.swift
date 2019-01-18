@@ -32,6 +32,12 @@ class Main {
             serverDevice.events.connected.handler = { (device) in
                 logDebug("Client is connected handler fired")
                 
+                doubleReturnElement.handler = { element, device in
+                    logDebug("Recieved Double element: \(doubleElement.value)")
+                    // Send back an element
+                    
+                }
+                
                 let serverDevice = device as! ServerDevice
            
                 var keepSending = true
@@ -51,8 +57,6 @@ class Main {
                     
                     //--------------------------------
 
-                    
-                    
                     //--------------------------------
                     // This will send a LONG STRING and result in a client disconnect (zero bytes read)
                     /*
@@ -68,6 +72,8 @@ class Main {
                     //--------------------------------
                     
                     usleep(1000)
+                    
+                    
                     
                     
                 }
@@ -96,7 +102,6 @@ class Main {
             
             doubleElement.handler = { element, device in
                 //logDebug("Recieved Double element: \(doubleElement.value)")
-                
                 // Send back an element
                 doubleReturnElement.value = element.value
                 do {
@@ -104,7 +109,6 @@ class Main {
                 } catch {
                     logDebug("Element failed to send: \(error)")
                 }
-                
             }
             
             let stringElement = device.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
