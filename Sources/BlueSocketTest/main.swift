@@ -10,6 +10,8 @@ var elementalController = ElementalController()
 var clientDevice: ClientDevice?
 var serverDevice: ServerDevice?
 
+ElementalController.loggerLogLevel = .Verbose
+
 class Main {
     
     func runClient() {
