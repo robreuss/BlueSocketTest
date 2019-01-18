@@ -24,9 +24,6 @@ class Main {
 
             let stringElement = serverDevice.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
 
-            doubleReturnElement.handler = { element, device in
-                logDebug("Received return element")
-            }
 
             serverDevice.events.deviceDisconnected.handler = { _ in
                 logDebug("Server disconnected handler fired")
@@ -36,6 +33,10 @@ class Main {
                 logDebug("Client is connected handler fired")
 
                 let serverDevice = device as! ServerDevice
+
+                doubleReturnElement.handler = { element, device in
+                    logDebug("Received return element")
+                }
 
                 var keepSending = true
                 while keepSending == true {
