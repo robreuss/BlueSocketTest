@@ -31,15 +31,16 @@ class Main {
             
             serverDevice.events.connected.handler = { (device) in
                 logDebug("Client is connected handler fired")
-                
-                doubleReturnElement.handler = { element, device in
-                    logDebug("Recieved Double element: \(doubleElement.value)")
+
+                let serverDevice = device as! ServerDevice
+
+                let returnElement = device.getElementWith(identifier: eid_testDoubleReturnElement)
+                returnElement.handler = { element, device in
+                    logDebug("Recieved Double element: \(element.value)")
                     // Send back an element
                     
                 }
                 
-                let serverDevice = device as! ServerDevice
-           
                 var keepSending = true
                 while keepSending == true {
                     
