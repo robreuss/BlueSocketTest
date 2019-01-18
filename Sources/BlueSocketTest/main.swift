@@ -130,7 +130,7 @@ class Main {
                 let element = device.getElementWith(identifier: eid_testDoubleReturnElement)
                 element!.value = Date().timeIntervalSince1970
                 do {
-                    try serverDevice.send(element: element!)
+                    try device.send(element: element!)
                 } catch {
                     logDebug("Element failed to send: \(error)")
                     keepSending = false
