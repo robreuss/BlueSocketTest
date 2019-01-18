@@ -2,8 +2,8 @@ import Foundation
 import ElementalController
 
 let eid_testDoubleElement: Int8 = 1
-let eid_testStringElement: Int8 = 2
-
+let eid_testDoubleReturnElement: Int8 = 2
+let eid_testStringElement: Int8 = 3
 
 let serviceName = "blue"
 var elementalController = ElementalController()
@@ -19,6 +19,8 @@ class Main {
         elementalController.browser.events.foundServer.handler { serverDevice in
             
             let doubleElement = serverDevice.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
+            
+            let doubleReturnElement = serverDevice.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
 
             let stringElement = serverDevice.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
 
@@ -90,9 +92,19 @@ class Main {
         elementalController.service.events.deviceConnected.handler = { _, device in
 
             let doubleElement = device.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
+            let doubleReturnElement = device.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
             
             doubleElement.handler = { element, device in
                 //logDebug("Recieved Double element: \(doubleElement.value)")
+                
+                // Send back an element
+                doubleReturnElement.value = element.value
+                do {
+                    try serverDevice?.send(element: doubleReturnElement)
+                } catch {
+                    logDebug("Element failed to send: \(error)")
+                }
+                
             }
             
             let stringElement = device.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
