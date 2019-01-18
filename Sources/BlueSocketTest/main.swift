@@ -72,7 +72,7 @@ class Main {
                     */
                     //--------------------------------
                     
-                    usleep(32000)
+                    usleep(100000)
                     
                     
                     
@@ -119,6 +119,43 @@ class Main {
             stringElement.handler = { element, device in
                 //logDebug("Recieved String element: \(stringElement.value)")
             }
+            
+            
+            var keepSending = true
+            while keepSending == true {
+                
+                // -------------------------------
+                // This will send a DOUBLE and NOT result in a client disconnect (zero bytes read)
+                
+                let element = device.getElementWith(identifier: eid_testDoubleReturnElement)
+                element!.value = Date().timeIntervalSince1970
+                do {
+                    try serverDevice.send(element: element!)
+                } catch {
+                    logDebug("Element failed to send: \(error)")
+                    keepSending = false
+                }
+                
+                //--------------------------------
+                
+                //--------------------------------
+                // This will send a LONG STRING and result in a client disconnect (zero bytes read)
+                /*
+                 let element = device.getElementWith(identifier: eid_testStringElement)
+                 element!.value = String(repeating: "A", count: 100000)
+                 do {
+                 try serverDevice.send(element: element!)
+                 } catch {
+                 logDebug("Element failed to send: \(error)")
+                 keepSending = false
+                 }
+                 */
+                //--------------------------------
+                
+                usleep(10000)
+   
+            }
+            
             
         }
         
