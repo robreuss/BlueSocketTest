@@ -34,8 +34,8 @@ class Main {
 
                 let serverDevice = device as! ServerDevice
 
-                let returnElement = device.getElementWith(identifier: eid_testDoubleReturnElement)
-                returnElement.handler = { element, device in
+                let returnElement = serverDevice.getElementWith(identifier: eid_testDoubleReturnElement)
+                returnElement?.handler = { element, device in
                     logDebug("Recieved Double element: \(element.value)")
                     // Send back an element
                     
