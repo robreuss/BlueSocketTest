@@ -101,10 +101,12 @@ class Main {
             let doubleReturnElement = device.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
             
             doubleElement.handler = { element, device in
-                logDebug("Recieved Double element: \(doubleElement.value)")
+                let clientDevice = device as! clientDevice
+                logDebug("Recieved Double element: \(element.value)")
                 // Send back an element
                 doubleReturnElement.value = element.value
                 do {
+                    logDebug("Sending element")
                     try device.send(element: doubleReturnElement)
                 } catch {
                     logDebug("Element failed to send: \(error)")
