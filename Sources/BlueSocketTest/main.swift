@@ -101,7 +101,7 @@ class Main {
             let doubleReturnElement = device.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
             
             doubleElement.handler = { element, device in
-                let clientDevice = device as! clientDevice
+                let clientDevice = device as! ClientDevice
                 logDebug("Recieved Double element: \(element.value)")
                 // Send back an element
                 doubleReturnElement.value = element.value
