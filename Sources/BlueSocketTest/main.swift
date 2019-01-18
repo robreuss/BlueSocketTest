@@ -89,7 +89,7 @@ class Main {
     
     func runServer() {
   
-        elementalController.setupForService(serviceName: serviceName, displayName: "")
+        elementalController.setupForService(serviceName: serviceName, displayName: "Blue Server")
         
         elementalController.service.events.deviceDisconnected.handler = { _, _ in
             logDebug("Client device disconnected handler fired")
@@ -101,7 +101,7 @@ class Main {
             let doubleReturnElement = device.attachElement(Element(identifier: eid_testDoubleReturnElement, displayName: "eid_testDoubleReturnElement", proto: .tcp, dataType: .Double))
             
             doubleElement.handler = { element, device in
-                //logDebug("Recieved Double element: \(doubleElement.value)")
+                logDebug("Recieved Double element: \(doubleElement.value)")
                 // Send back an element
                 doubleReturnElement.value = element.value
                 do {
