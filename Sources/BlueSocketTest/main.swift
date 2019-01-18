@@ -105,7 +105,7 @@ class Main {
                 // Send back an element
                 doubleReturnElement.value = element.value
                 do {
-                    try serverDevice?.send(element: doubleReturnElement)
+                    try device.send(element: doubleReturnElement)
                 } catch {
                     logDebug("Element failed to send: \(error)")
                 }
