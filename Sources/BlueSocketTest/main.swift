@@ -18,12 +18,10 @@ class Main {
         
         elementalController.browser.events.foundServer.handler { serverDevice in
             
-            let element = serverDevice.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
-            
-            element.handler = { element, _ in
-                print("Value: \(element.value)")
-                
-            }
+            let doubleElement = serverDevice.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
+
+            let stringElement = serverDevice.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
+
             
             serverDevice.events.deviceDisconnected.handler = { _ in
                 logDebug("Server disconnected handler fired")
@@ -80,13 +78,17 @@ class Main {
         }
         
         elementalController.service.events.deviceConnected.handler = { _, device in
+
+            let doubleElement = device.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
             
-            clientDevice = device as! ClientDevice
+            doubleElement.handler = { element, device in
+                //logDebug("Recieved Double element: \(doubleElement.value)")
+            }
             
-            let element = device.attachElement(Element(identifier: eid_testDoubleElement, displayName: "eid_testDoubleElement", proto: .tcp, dataType: .Double))
+            let stringElement = device.attachElement(Element(identifier: eid_testStringElement, displayName: "eid_testStringElement", proto: .tcp, dataType: .String))
             
-            element.handler = { element, device in
-                logDebug("Recieved test element: \(element.value)")
+            stringElement.handler = { element, device in
+                //logDebug("Recieved String element: \(stringElement.value)")
             }
             
         }
